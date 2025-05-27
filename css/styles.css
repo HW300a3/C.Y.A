@@ -1,0 +1,603 @@
+/* Horizons West Digital Signage - Main Stylesheet */
+
+/* Variables */
+:root {
+    /* Brand Colors */
+    --hw-orange: rgb(236, 119, 0);
+    --hw-orange-rgb: 236, 119, 0;
+    --hw-dark-blue: rgb(0, 38, 62);
+    --hw-yellow: rgb(255, 198, 41);
+    --hw-light-orange: rgb(255, 158, 24);
+    
+    /* Alert Colors */
+    --alert-red: #d32f2f;
+    --alert-yellow: #ffc107;
+    --alert-orange: #ff9800;
+    
+    /* Light Mode Colors */
+    --light-bg: #f5f5f5;
+    --light-text: #212121;
+    --light-panel: #ffffff;
+    --light-shadow: rgba(0, 0, 0, 0.1);
+    
+    /* Dark Mode Colors */
+    --dark-bg: #121212;
+    --dark-text: #f5f5f5;
+    --dark-panel: #1e1e1e;
+    --dark-shadow: rgba(255, 255, 255, 0.05);
+    
+    /* Current Theme (defaults to light) */
+    --bg-color: var(--light-bg);
+    --text-color: var(--light-text);
+    --panel-bg: var(--light-panel);
+    --shadow-color: var(--light-shadow);
+    
+    /* Layout */
+    --header-height: 15vh;
+    --footer-height: 20vh; /* Increased for dual tickers */
+    --main-height: 65vh; /* Adjusted for increased footer */
+}
+
+/* Dark Mode */
+.dark-mode {
+    --bg-color: var(--dark-bg);
+    --text-color: var(--dark-text);
+    --panel-bg: var(--dark-panel);
+    --shadow-color: var(--dark-shadow);
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Rubik', Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.5s ease, color 0.5s ease;
+    overflow: hidden;
+}
+
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Header Styles */
+.header {
+    height: var(--header-height);
+    background: linear-gradient(135deg, var(--hw-orange) 0%, var(--hw-light-orange) 100%);
+    color: white;
+    position: relative;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    z-index: 10;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0 2rem;
+}
+
+.logo-container {
+    flex: 1;
+}
+
+.logo {
+    height: 80%;
+    max-height: 80px;
+    object-fit: contain;
+}
+
+.datetime-container {
+    flex: 2;
+    text-align: center;
+}
+
+.time {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.date {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.weather-summary {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.weather-icon {
+    width: 80px;
+    height: 80px;
+}
+
+.temperature {
+    font-size: 3rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.sunset-wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background-image: url('../assets/icons/sunset-wave.svg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+/* Main Content Styles */
+.main-content {
+    display: flex;
+    height: var(--main-height);
+    background-color: var(--bg-color);
+}
+
+.map-container {
+    flex: 7; /* 70% of the width */
+    height: 100%;
+    background-color: #e0e0e0;
+    position: relative;
+}
+
+#travel-map {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.side-panel {
+    flex: 3; /* 30% of the width */
+    height: 100%;
+    background-color: var(--panel-bg);
+    padding: 1rem;
+    box-shadow: -4px 0 6px var(--shadow-color);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+}
+
+.weather-details, .depot-info, .accident-list {
+    background-color: var(--panel-bg);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.weather-details h2, .depot-info h2, .accident-list h2 {
+    color: var(--hw-orange);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    border-bottom: 2px solid var(--hw-orange);
+    padding-bottom: 0.5rem;
+}
+
+.weather-data {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.weather-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+}
+
+.label {
+    font-weight: 500;
+}
+
+.value {
+    font-weight: 700;
+}
+
+.depot-selector {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.depot-button {
+    padding: 0.5rem 1rem;
+    background-color: var(--bg-color);
+    border: 2px solid var(--hw-orange);
+    border-radius: 30px;
+    color: var(--text-color);
+    font-family: 'Rubik', Arial, sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.depot-button:hover {
+    background-color: var(--hw-light-orange);
+    color: white;
+}
+
+.depot-button.active {
+    background-color: var(--hw-orange);
+    color: white;
+}
+
+.ablesign-info {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background-color: rgba(var(--hw-orange-rgb), 0.1);
+    border-left: 3px solid var(--hw-orange);
+    border-radius: 4px;
+}
+
+.ablesign-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+/* Accident List Styles */
+.accident-list {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#accidents-container {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.accident-item {
+    padding: 0.75rem;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-left: 4px solid var(--hw-orange);
+}
+
+.accident-item.severe {
+    border-left-color: var(--alert-red);
+    background-color: rgba(211, 47, 47, 0.1);
+}
+
+.accident-item.moderate {
+    border-left-color: var(--alert-orange);
+    background-color: rgba(255, 152, 0, 0.1);
+}
+
+.accident-item.minor {
+    border-left-color: var(--alert-yellow);
+    background-color: rgba(255, 193, 7, 0.1);
+}
+
+.accident-location {
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.accident-description {
+    font-size: 0.9rem;
+}
+
+.accident-time {
+    font-size: 0.8rem;
+    color: rgba(var(--text-color), 0.7);
+    margin-top: 0.25rem;
+    text-align: right;
+}
+
+.loading-accidents {
+    padding: 1rem;
+    text-align: center;
+    color: rgba(var(--text-color), 0.7);
+}
+
+/* Footer/Ticker Styles */
+.footer {
+    height: var(--footer-height);
+    background-color: var(--hw-dark-blue);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 -4px 6px var(--shadow-color);
+}
+
+.ticker-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+    padding: 0 1rem;
+}
+
+.ticker-heading {
+    background-color: var(--hw-orange);
+    color: white;
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px 0 0 8px;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    white-space: nowrap;
+}
+
+.ticker {
+    flex: 1;
+    height: 70%;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 0 8px 8px 0;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0 1rem;
+}
+
+/* Dot Matrix Ticker Style */
+.dot-matrix {
+    background-color: #000;
+    color: #ff6600;
+    font-family: monospace;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 2px solid #333;
+}
+
+/* Emergency Modal Styles */
+.emergency-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.emergency-modal.active {
+    display: flex;
+}
+
+.emergency-content {
+    background-color: #d32f2f;
+    color: white;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(211, 47, 47, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); }
+}
+
+.emergency-header {
+    padding: 1.5rem;
+    background-color: #b71c1c;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.emergency-header h2 {
+    margin: 0;
+    font-size: 2rem;
+    text-align: center;
+    flex: 1;
+}
+
+.emergency-header button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.emergency-body {
+    padding: 2rem;
+    font-size: 1.5rem;
+    text-align: center;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Admin Controls (for testing) */
+.admin-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    display: flex;
+    gap: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.admin-controls button {
+    padding: 0.5rem 1rem;
+    background-color: var(--hw-dark-blue);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Rubik', Arial, sans-serif;
+}
+
+.admin-controls button#trigger-emergency {
+    background-color: #d32f2f;
+}
+
+.admin-controls button#send-announcement {
+    background-color: var(--hw-orange);
+}
+
+.admin-controls input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: 'Rubik', Arial, sans-serif;
+}
+
+/* Animation for the ticker */
+@keyframes ticker {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.ticker-content {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    animation: ticker 30s linear infinite;
+}
+
+.ticker-item {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 2rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.ticker-item.alert-closure {
+    background-color: var(--alert-red);
+}
+
+.ticker-item.alert-caution {
+    background-color: var(--alert-yellow);
+    color: #000;
+}
+
+.ticker-item.alert-condition {
+    background-color: var(--alert-orange);
+}
+
+.ticker-icon {
+    margin-right: 0.5rem;
+    width: 24px;
+    height: 24px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .time {
+        font-size: 3rem;
+    }
+    
+    .date {
+        font-size: 1.2rem;
+    }
+    
+    .temperature {
+        font-size: 2.5rem;
+    }
+    
+    .weather-icon {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 992px) {
+    .main-content {
+        flex-direction: column;
+    }
+    
+    .map-container {
+        flex: 1;
+        height: 60%;
+    }
+    
+    .side-panel {
+        flex: 1;
+        height: 40%;
+        flex-direction: row;
+    }
+    
+    .weather-details, .accident-list, .depot-info {
+        flex: 1;
+        max-height: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 0.5rem;
+    }
+    
+    .logo-container, .datetime-container, .weather-summary {
+        flex: none;
+    }
+    
+    .time {
+        font-size: 2.5rem;
+    }
+    
+    .date {
+        font-size: 1rem;
+    }
+    
+    .side-panel {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    .footer {
+        height: 25vh;
+    }
+    
+    .ticker-heading {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+    
+    .ticker {
+        font-size: 0.9rem;
+    }
+}

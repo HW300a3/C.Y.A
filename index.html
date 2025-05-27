@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizons West Digital Signage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="assets/logos/Horizons_West_Landscape_Reversed.png" alt="Horizons West" class="logo">
+                </div>
+                <div class="datetime-container">
+                    <div class="time" id="current-time">00:00:00</div>
+                    <div class="date" id="current-date">Monday, 26 May 2025</div>
+                </div>
+                <div class="weather-summary">
+                    <div class="weather-icon" id="weather-icon">
+                        <!-- Weather icon will be inserted here -->
+                    </div>
+                    <div class="temperature" id="current-temp">--°C</div>
+                </div>
+            </div>
+            <div class="sunset-wave"></div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Left side: Map (60-70%) -->
+            <div class="map-container">
+                <iframe id="travel-map" src="https://travelmap.mainroads.wa.gov.au/Home/Map" frameborder="0" allowfullscreen></iframe>
+            </div>
+            
+            <!-- Right side: Accident list and info (30-40%) -->
+            <div class="side-panel">
+                <div class="weather-details">
+                    <h2>Perth Weather</h2>
+                    <div class="weather-data">
+                        <div class="weather-row">
+                            <span class="label">Feels Like:</span>
+                            <span class="value" id="feels-like">--°C</span>
+                        </div>
+                        <div class="weather-row">
+                            <span class="label">Humidity:</span>
+                            <span class="value" id="humidity">--%</span>
+                        </div>
+                        <div class="weather-row">
+                            <span class="label">Wind:</span>
+                            <span class="value" id="wind-speed">-- km/h</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accident-list">
+                    <h2>Current Accidents</h2>
+                    <div id="accidents-container">
+                        <!-- Accident items will be inserted here -->
+                        <div class="loading-accidents">Loading accident data...</div>
+                    </div>
+                </div>
+                
+                <div class="depot-info">
+                    <h2>Depot Information</h2>
+                    <div class="depot-selector">
+                        <button class="depot-button active" data-depot="welshpool">Welshpool</button>
+                        <button class="depot-button" data-depot="landsdale">Landsdale</button>
+                    </div>
+                    <div class="depot-details" id="depot-details">
+                        <!-- Depot specific information will be displayed here -->
+                    </div>
+                    <div class="ablesign-info">
+                        <p>All screens linked via Ablesign system</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer/Ticker Section -->
+        <footer class="footer">
+            <!-- Incident ticker -->
+            <div class="ticker-container incident-ticker">
+                <div class="ticker-heading">LIVE INCIDENTS:</div>
+                <div class="ticker" id="incident-ticker">
+                    <!-- Incident ticker content will be inserted here -->
+                </div>
+            </div>
+            
+            <!-- Announcement ticker (dot matrix style) -->
+            <div class="ticker-container announcement-ticker">
+                <div class="ticker-heading">ANNOUNCEMENTS:</div>
+                <div class="ticker dot-matrix" id="announcement-ticker">
+                    <!-- Announcement ticker content will be inserted here -->
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Emergency Override Modal -->
+    <div id="emergency-modal" class="emergency-modal">
+        <div class="emergency-content">
+            <div class="emergency-header">
+                <h2>⚠️ EMERGENCY ALERT ⚠️</h2>
+                <button id="close-emergency">×</button>
+            </div>
+            <div class="emergency-body" id="emergency-message">
+                Emergency message will appear here
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Trigger (for testing) -->
+    <div class="admin-controls">
+        <button id="theme-switch">Toggle Dark/Light Mode</button>
+        <button id="trigger-emergency">Test Emergency Override</button>
+        <input type="text" id="announcement-input" placeholder="Enter announcement message">
+        <button id="send-announcement">Send Announcement</button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/weather.js"></script>
+    <script src="js/clock.js"></script>
+    <script src="js/incidents.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/emergency.js"></script>
+    <script src="js/announcements.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
